@@ -27,14 +27,17 @@ public class FrontController extends HttpServlet {
         response.setContentType("text/html");
         String command = request.getParameter("command");
         CommandDirector director = new CommandDirector();
-        //PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
+        out.println(request.getHeader("referer"));
+        //out.println(request.getRequestURI().replace("/","") + "?" +  request.getQueryString()+
+       // "locale="+request.getParameter("command"));
         try{
             director.getCommand(command).execute(request,response);
         }
         catch (ServiceException e){
             e.printStackTrace();
         }
-        /*
+/*
         try {
                // User user = userService.findUser(name, surname);
                 //request.setAttribute("user", user);

@@ -13,10 +13,12 @@
 <body>
     <form action="FrontController" method="get">
         <input type="hidden" name="command" value="RU">
+        <input type="hidden" name="page" value="index.jsp">
         <input type="submit" value="RU">
     </form>
     <form action="FrontController" method="get">
         <input type="hidden" name="command" value="EN">
+        <input type="hidden" name="page" value="index.jsp">
         <input type="submit" value="EN">
     </form>
     <form action="FrontController" method="get">

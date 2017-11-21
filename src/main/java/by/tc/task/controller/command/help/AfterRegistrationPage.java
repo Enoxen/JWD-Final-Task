@@ -17,15 +17,9 @@ public class AfterRegistrationPage implements Command{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ServletException, IOException {
         String command = request.getParameter("command");
-            if(!command.equals("RU") && !(command.equals("EN"))) {
+            if(command.equals("after_registration")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/finderPage.jsp");
                 dispatcher.forward(request, response);
             }
-
-        else{
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-            dispatcher.forward(request, response);
-        }
-
     }
 }
