@@ -1,6 +1,5 @@
 package by.tc.task.dao;
 
-import by.tc.task.constant.ConnectionConstant;
 import by.tc.task.dao.impl.UserDAOImpl;
 
 /**
