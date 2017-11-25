@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public boolean registration(String login, String password) throws ServiceException{
-
             try {
                 return userDAO.registration(login, password);
             }
