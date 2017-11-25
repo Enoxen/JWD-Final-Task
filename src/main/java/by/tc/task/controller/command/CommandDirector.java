@@ -15,8 +15,8 @@ public class CommandDirector {
         map.put("authorization", new UserAuthorizer());
         map.put("find_film", new FilmGetter());
         map.put("after_registration",new AfterRegistrationPage());
-        map.put("ru", new ChangeLocale());
-        map.put("en", new ChangeLocale());
+        map.put("change_locale", new ChangeLocale());
+        map.put("sign", new ToSignPage());
     }
     public Command getCommand(String commandType){
         return  map.get(commandType);

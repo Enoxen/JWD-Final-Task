@@ -11,17 +11,6 @@
 </head>
 <body>
     <c:if test="${requestScope.film.name != null}">
-
-        <form action="FrontController" method="get">
-            <input type="hidden" name="command" value="ru">
-            <input type="hidden" name="page" value="WEB-INF/jsp/filmPage.jsp">
-            <input type="submit" value="RU">
-        </form>
-        <form action="FrontController" method="get">
-            <input type="hidden" name="command" value="find_film">
-            <input type="hidden" name="page" value="WEB-INF/jsp/filmPage.jsp">
-            <input type="submit" value="EN">
-        </form>
         <table>
             <tr>
                 <td>${name}</td>
@@ -34,5 +23,10 @@
         </table>
 
     </c:if>
+
+    <footer>
+        <a href="/FrontController?command=change_locale&locale=ru">Русский</a>
+        <a href="/FrontController?command=change_locale&locale=en">English</a>
+    </footer>
 </body>
 </html>

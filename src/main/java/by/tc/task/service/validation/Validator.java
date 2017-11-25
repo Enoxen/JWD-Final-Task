@@ -13,7 +13,6 @@ public class Validator {
 
         return Pattern.matches(LOGIN_PATTERN, login) &&
                 Pattern.matches(PASSWORD_PATTERN, password);
-
     }
      public static boolean isValidFilmRequest(String filmTitle){
          return Pattern.matches(FILM_PATTERN, filmTitle);

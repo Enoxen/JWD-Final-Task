@@ -1,8 +1,10 @@
 package by.tc.task.controller;
 
+import by.tc.task.controller.command.Command;
 import by.tc.task.controller.command.CommandDirector;
 import by.tc.task.exception.ServiceException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +21,6 @@ public class FrontController extends HttpServlet {
         Проблема с томкатом была решена, я редиректом просто посылал вечный запрос в цикле.
         Из локализации не доделал редирект для страницы, где выводится информация из бд, каюсь сразу.
         И эксепшны не залогировал, тоже каюсь, не успел, всё время ушло на раздумья по поводу вечного запроса.
-
-
     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,10 +29,15 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        String command = request.getParameter("command");
+        String commandType = request.getParameter("command");
         CommandDirector director = new CommandDirector();
         try{
-            director.getCommand(command).execute(request,response);
+            Command command = director.getCommand(commandType);
+            if(!commandType.equals("change_locale")){
+                String lastRequset = request.getServletPath() + "?" + request.getQueryString();
+                response.addCookie(new Cookie("last_request", lastRequset));
+            }
+            command.execute(request, response);
         }
         catch (ServiceException e){
             PrintWriter out = response.getWriter();
