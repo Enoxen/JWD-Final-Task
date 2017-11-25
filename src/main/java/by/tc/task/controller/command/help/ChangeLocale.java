@@ -17,6 +17,7 @@ public class ChangeLocale implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ServletException, IOException {
         request.getSession().setAttribute("locale", request.getParameter("command"));
 
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(request.getParameter("page"));
         dispatcher.forward(request,response);
     }

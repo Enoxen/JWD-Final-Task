@@ -7,6 +7,8 @@ import by.tc.task.constant.ResponseFromDb;
 import by.tc.task.constant.RequestToDb;
 import by.tc.task.entity.Film;
 import by.tc.task.exception.DAOException;
+import by.tc.task.service.validation.Validator;
+
 import java.sql.*;
 
 /**
@@ -19,19 +21,24 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean authorization(String login, String password) throws DAOException {
         try {
-            establishConnection();
-            java.sql.PreparedStatement statement = connection.prepareStatement(PreparedStatement.AUTHORIZE);
-            statement.setString(RequestToDb.USER_LOGIN, login);
-            statement.setString(RequestToDb.USER_PASSWORD, password);
-            ResultSet result = statement.executeQuery();
-            result.next();
-            if (result.getString(ResponseFromDb.USER_LOGIN) != null) {
-                return true;
-            } else {
-                return false;
+            if(Validator.isValidAuthData(login, password)){
+                establishConnection();
+                java.sql.PreparedStatement statement = connection.prepareStatement(
+                        PreparedStatement.AUTHORIZE);
+                statement.setString(RequestToDb.USER_LOGIN, login);
+                statement.setString(RequestToDb.USER_PASSWORD, password);
+                ResultSet result = statement.executeQuery();
+                while(result.next()){
+                        if (result.getString(ResponseFromDb.USER_LOGIN) == null) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }
             }
+            else return false;
         } catch (SQLException e) {
-            throw new DAOException("problems with authorization",e);
+            e.printStackTrace();
         } finally {
             try {
                 if (connection != null) {
@@ -41,6 +48,7 @@ public class UserDAOImpl implements UserDAO {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
     @Override
@@ -109,11 +117,15 @@ public class UserDAOImpl implements UserDAO {
     }
     private void establishConnection() throws DAOException {
         try {
-            if(connection == null) {
-                Class.forName(ConnectionConstant.DRIVER);
-                connection = DriverManager.getConnection(ConnectionConstant.URL,
-                        ConnectionConstant.LOGIN, ConnectionConstant.PASSWORD);
-            }
+                if(connection == null) {
+                    Class.forName(ConnectionConstant.DRIVER);
+                    connection = DriverManager.getConnection(ConnectionConstant.URL,
+                            ConnectionConstant.LOGIN, ConnectionConstant.PASSWORD);
+                }
+                else if (connection.isClosed()){
+                    connection = DriverManager.getConnection(ConnectionConstant.URL,
+                            ConnectionConstant.LOGIN, ConnectionConstant.PASSWORD);
+                }
         } catch (SQLException e) {
             throw new DAOException("no connection to db");
         } catch (ClassNotFoundException e) {

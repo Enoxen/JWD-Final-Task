@@ -30,6 +30,7 @@ public class FrontController extends HttpServlet {
         catch (ServiceException e){
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
+            out.println(e.getStackTrace().toString());
         }
         }
 

@@ -41,6 +41,7 @@
     <column id="16" parent="9" name="idfilms">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
     </column>
     <column id="17" parent="9" name="film_name">
       <data-type>varchar(45)|0</data-type>
