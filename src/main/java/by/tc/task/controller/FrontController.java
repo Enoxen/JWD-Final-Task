@@ -20,6 +20,7 @@ public class FrontController extends HttpServlet {
         Из локализации не доделал редирект для страницы, где выводится информация из бд, каюсь сразу.
         И эксепшны не залогировал, тоже каюсь, не успел, всё время ушло на раздумья по поводу вечного запроса.
 
+
     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
