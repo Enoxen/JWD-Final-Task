@@ -6,6 +6,7 @@ import by.tc.task.entity.Film;
 import by.tc.task.exception.DAOException;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.UserService;
+import by.tc.task.service.validation.Validator;
 
 /**
  * Created by Y50-70 on 12.11.2017.
@@ -18,7 +19,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authorization(String login, String password) throws ServiceException{
         try {
-            return userDAO.authorization(login, password);
+            if(Validator.isValidAuthData(login,password)) {
+                return userDAO.authorization(login, password);
+            }
+            else return false;
         }
         catch (DAOException e){
             throw new ServiceException(e);
@@ -27,7 +31,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean registration(String login, String password) throws ServiceException{
             try {
-                return userDAO.registration(login, password);
+                if(Validator.isValidAuthData(login, password)) {
+                    return userDAO.registration(login, password);
+                }
+                else{
+                    return false;
+                }
             }
             catch (DAOException e){
                 throw new ServiceException(e);
@@ -38,7 +47,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Film findFilm(String name) throws ServiceException {
         try {
-            return userDAO.findFilm(name);
+            if(Validator.isValidFilmRequest(name)) {
+                return userDAO.findFilm(name);
+            }
+            else {
+                return null;
+            }
         }
         catch (DAOException e){
             throw new ServiceException(e);

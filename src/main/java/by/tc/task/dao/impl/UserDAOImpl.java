@@ -21,22 +21,20 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean authorization(String login, String password) throws DAOException {
         try {
-            if(Validator.isValidAuthData(login, password)){
-                establishConnection();
-                java.sql.PreparedStatement statement = connection.prepareStatement(
-                        PreparedStatement.AUTHORIZE);
-                statement.setString(RequestToDb.USER_LOGIN, login);
-                statement.setString(RequestToDb.USER_PASSWORD, password);
-                ResultSet result = statement.executeQuery();
-                while(result.next()){
-                        if (result.getString(ResponseFromDb.USER_LOGIN) == null) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
+            establishConnection();
+            java.sql.PreparedStatement statement = connection.prepareStatement(
+                    PreparedStatement.AUTHORIZE);
+            statement.setString(RequestToDb.USER_LOGIN, login);
+            statement.setString(RequestToDb.USER_PASSWORD, password);
+            ResultSet result = statement.executeQuery();
+            while(result.next()){
+                if (result.getString(ResponseFromDb.USER_LOGIN) == null) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
-            else return false;
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.find" var="loc"/>
+<fmt:message bundle="${loc}" key="find.text" var="text"
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
     <title>User output</title>
@@ -18,7 +21,7 @@
 </form>
 <form action="FrontController" method="get">
     <input type="hidden" name="command" value="find_film">
-    <br>Enter film name:
+    <br>${text}:
     <br><input type="text" name="film_name" value="">
     <input type="submit" value="Send">
 </form>
