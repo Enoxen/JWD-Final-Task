@@ -24,9 +24,6 @@ public class FrontController extends HttpServlet {
         response.setContentType("text/html");
         String command = request.getParameter("command");
         CommandDirector director = new CommandDirector();
-
-        //out.println(request.getRequestURI().replace("/","") + "?" +  request.getQueryString()+
-       // "locale="+request.getParameter("command"));
         try{
             director.getCommand(command).execute(request,response);
         }
