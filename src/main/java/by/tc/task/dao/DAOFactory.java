@@ -1,5 +1,6 @@
 package by.tc.task.dao;
 
+import by.tc.task.constant.ConnectionConstant;
 import by.tc.task.dao.impl.UserDAOImpl;
 
 /**
@@ -8,8 +9,8 @@ import by.tc.task.dao.impl.UserDAOImpl;
 public class DAOFactory {
     private static final DAOFactory instance = new DAOFactory();
     private final UserDAO userDao = new UserDAOImpl();
-
     private DAOFactory(){}
+
 
     public UserDAO getUserDao(){
         return userDao;

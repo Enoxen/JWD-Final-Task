@@ -1,10 +1,10 @@
 package by.tc.task.dao.impl;
 
 import by.tc.task.dao.UserDAO;
-import static by.tc.task.dao.constants.ConnectionConstants.*;
-import  by.tc.task.dao.constants.PreparedStatements;
-import  by.tc.task.dao.constants.ResponseFromDb;
-import  by.tc.task.dao.constants.RequestToDb;
+import by.tc.task.constant.ConnectionConstant;
+import by.tc.task.constant.PreparedStatement;
+import by.tc.task.constant.ResponseFromDb;
+import by.tc.task.constant.RequestToDb;
 import by.tc.task.entity.Film;
 import by.tc.task.exception.DAOException;
 import java.sql.*;
@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean authorization(String login, String password) throws DAOException {
         try {
             establishConnection();
-            PreparedStatement statement = connection.prepareStatement(PreparedStatements.AUTHORIZE);
+            java.sql.PreparedStatement statement = connection.prepareStatement(PreparedStatement.AUTHORIZE);
             statement.setString(RequestToDb.USER_LOGIN, login);
             statement.setString(RequestToDb.USER_PASSWORD, password);
             ResultSet result = statement.executeQuery();
@@ -31,7 +31,7 @@ public class UserDAOImpl implements UserDAO {
                 return false;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new DAOException("problems with authorization",e);
         } finally {
             try {
                 if (connection != null) {
@@ -41,19 +41,18 @@ public class UserDAOImpl implements UserDAO {
                 e.printStackTrace();
             }
         }
-        return false;
     }
 
     @Override
     public Film findFilm(String name) throws DAOException {
         try {
             establishConnection();
-            PreparedStatement statement = connection.prepareStatement(PreparedStatements.GET_FILM);
+            java.sql.PreparedStatement statement = connection.prepareStatement(PreparedStatement.GET_FILM);
             statement.setString(RequestToDb.FILM_NAME, name);
             ResultSet result = statement.executeQuery();
             return makeFilmFromDbResponse(result);
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage(), e);
+            throw new DAOException("problems with finding film", e);
         }
         finally {
             try {
@@ -62,7 +61,7 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
             catch (SQLException e){
-                throw new DAOException(e.getMessage(),e);
+                throw new DAOException(e);
             }
         }
     }
@@ -88,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             if (!authorization(login, password)) {
                 establishConnection();
-                PreparedStatement statement = connection.prepareStatement(PreparedStatements.REGISTER);
+                java.sql.PreparedStatement statement = connection.prepareStatement(PreparedStatement.REGISTER);
                 statement.setString(RequestToDb.USER_LOGIN, login);
                 statement.setString(RequestToDb.USER_PASSWORD, password);
                 statement.execute();
@@ -97,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
                 return false;
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException("problems with registration",e);
         } finally {
             try {
                 if (connection != null) {
@@ -108,14 +107,15 @@ public class UserDAOImpl implements UserDAO {
             }
         }
     }
-
-
     private void establishConnection() throws DAOException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+            if(connection == null) {
+                Class.forName(ConnectionConstant.DRIVER);
+                connection = DriverManager.getConnection(ConnectionConstant.URL,
+                        ConnectionConstant.LOGIN, ConnectionConstant.PASSWORD);
+            }
         } catch (SQLException e) {
-            throw new DAOException("нет соединения с базой данных");
+            throw new DAOException("no connection to db");
         } catch (ClassNotFoundException e) {
             throw new DAOException("problems with db", e);
         }

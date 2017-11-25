@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
             return userDAO.authorization(login, password);
         }
         catch (DAOException e){
-            throw new ServiceException(e.getMessage(),e);
+            throw new ServiceException(e);
         }
     }
     @Override
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
                 return userDAO.registration(login, password);
             }
             catch (DAOException e){
-                throw new ServiceException(e.getMessage(), e);
+                throw new ServiceException(e);
             }
 
     }
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             return userDAO.findFilm(name);
         }
         catch (DAOException e){
-            throw new ServiceException(e.getMessage(), e);
+            throw new ServiceException(e);
         }
     }
 }

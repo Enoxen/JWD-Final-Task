@@ -10,7 +10,7 @@
     <input type="hidden" name="command" value="find_film">
     <br>Enter film name:
     <br><input type="text" name="film_name" value="">
-    <input type="submit" value="Отправить">
+    <input type="submit" value="Send">
 </form>
 </body>
 </html>

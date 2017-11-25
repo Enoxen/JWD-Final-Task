@@ -1,4 +1,4 @@
-package by.tc.task.dao.constants;
+package by.tc.task.constant;
 
 /**
  * Created by Y50-70 on 12.11.2017.

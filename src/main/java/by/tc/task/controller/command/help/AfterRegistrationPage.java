@@ -15,7 +15,9 @@ import java.io.PrintWriter;
  */
 public class AfterRegistrationPage implements Command{
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException,
+                                                            ServletException, IOException {
+
         String command = request.getParameter("command");
             if(command.equals("after_registration")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/finderPage.jsp");
