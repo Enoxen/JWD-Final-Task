@@ -2,6 +2,8 @@ package by.tc.task.controller;
 
 import by.tc.task.controller.command.Command;
 import by.tc.task.controller.command.CommandDirector;
+import by.tc.task.controller.constant.AttributeKey;
+import by.tc.task.controller.constant.CommandParam;
 import by.tc.task.exception.ServiceException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -16,6 +18,11 @@ import java.io.PrintWriter;
  */
 
 public class FrontController extends HttpServlet {
+        /*
+        Проблема с томкатом и локализацией была решена, так что моё сообщение на training.by
+        более не действительно
+         */
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,13 +31,13 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        String commandType = request.getParameter("command");
+        String commandType = request.getParameter(CommandParam.COMMAND);
         CommandDirector director = new CommandDirector();
         try{
             Command command = director.getCommand(commandType);
-            if(!commandType.equals("change_locale")){
+            if(!commandType.equals(CommandParam.CHANGE_LOCALE)){
                 String lastRequest = request.getServletPath() + "?" + request.getQueryString();
-                response.addCookie(new Cookie("last_request", lastRequest));
+                response.addCookie(new Cookie(AttributeKey.LAST_REQUEST, lastRequest));
             }
             command.execute(request, response);
         }
