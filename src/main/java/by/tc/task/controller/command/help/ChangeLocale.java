@@ -1,6 +1,8 @@
 package by.tc.task.controller.command.help;
 
 import by.tc.task.controller.command.Command;
+import by.tc.task.controller.constant.AttributeKey;
+import by.tc.task.controller.constant.PagePath;
 import by.tc.task.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -16,11 +18,11 @@ import java.io.IOException;
 public class ChangeLocale implements Command{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ServletException, IOException {
-        request.getSession().setAttribute("locale", request.getParameter("locale"));
+        request.getSession().setAttribute(AttributeKey.LOCALE, request.getParameter(AttributeKey.LOCALE));
         Cookie[] cookies = request.getCookies();
-        String lastRequest= "after_registration";
+        String lastRequest= PagePath.FIND_FILM;
         for(Cookie cookie: cookies){
-            if(cookie.getName().equals("last_request")){
+            if(cookie.getName().equals(AttributeKey.LAST_REQUEST)){
                 lastRequest = cookie.getValue();
             }
         }

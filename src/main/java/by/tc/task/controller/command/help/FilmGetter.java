@@ -1,6 +1,7 @@
 package by.tc.task.controller.command.help;
 
 import by.tc.task.controller.command.Command;
+import by.tc.task.controller.constant.AttributeKey;
 import by.tc.task.entity.Film;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.ServiceFactory;
@@ -18,13 +19,13 @@ import java.io.IOException;
 public class FilmGetter implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ServletException, IOException {
-        String filmName = request.getParameter("film_name");
+        String filmName = request.getParameter(AttributeKey.FILM_TITLE);
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
         try {
             Film film = userService.findFilm(filmName);
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/filmPage.jsp");
-            request.setAttribute("film", film);
+            request.setAttribute(AttributeKey.SESSION_FILM, film);
             dispatcher.forward(request, response);
         }
         catch (ServiceException e){

@@ -1,7 +1,6 @@
 package by.tc.task.controller.command.help;
 
 import by.tc.task.controller.command.Command;
-import by.tc.task.controller.constant.AttributeKey;
 import by.tc.task.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Y50-70 on 25.11.2017.
+ * Created by Y50-70 on 26.11.2017.
  */
-public class ToSignPage implements Command{
+public class IndexPage implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getParameter(AttributeKey.CURRENT_PAGE));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 }

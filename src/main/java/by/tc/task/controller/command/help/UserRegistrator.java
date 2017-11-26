@@ -1,6 +1,7 @@
 package by.tc.task.controller.command.help;
 
 import by.tc.task.controller.command.Command;
+import by.tc.task.controller.constant.AttributeKey;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.ServiceFactory;
 import by.tc.task.service.UserService;
@@ -16,8 +17,8 @@ public class UserRegistrator implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, IOException {
         response.setContentType("text/html");
-        String login = request.getParameter("login").trim();
-        String password = request.getParameter("password").trim();
+        String login = request.getParameter(AttributeKey.LOGIN).trim();
+        String password = request.getParameter(AttributeKey.PASSWORD).trim();
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
         try {

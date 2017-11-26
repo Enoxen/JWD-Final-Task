@@ -29,8 +29,8 @@ public class FrontController extends HttpServlet {
         try{
             Command command = director.getCommand(commandType);
             if(!commandType.equals("change_locale")){
-                String lastRequset = request.getServletPath() + "?" + request.getQueryString();
-                response.addCookie(new Cookie("last_request", lastRequset));
+                String lastRequest = request.getServletPath() + "?" + request.getQueryString();
+                response.addCookie(new Cookie("last_request", lastRequest));
             }
             command.execute(request, response);
         }

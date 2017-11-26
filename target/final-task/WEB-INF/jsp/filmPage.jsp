@@ -11,7 +11,7 @@
 </head>
 <body>
     <c:if test="${requestScope.film.name != null}">
-        <table>
+        <table border="1">
             <tr>
                 <td>${name}</td>
                 <td>${genre}</td>

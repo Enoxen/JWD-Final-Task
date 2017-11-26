@@ -1,22 +1,22 @@
 package by.tc.task.dao.impl;
 
 import by.tc.task.dao.UserDAO;
-import by.tc.task.constant.ConnectionConstant;
-import by.tc.task.constant.PreparedStatement;
-import by.tc.task.constant.ResponseFromDb;
-import by.tc.task.constant.RequestToDb;
+import by.tc.task.dao.constant.ConnectionConstant;
+import by.tc.task.dao.constant.PreparedStatement;
+import by.tc.task.dao.constant.ResponseFromDb;
+import by.tc.task.dao.constant.RequestToDb;
 import by.tc.task.entity.Film;
 import by.tc.task.exception.DAOException;
-import by.tc.task.service.validation.Validator;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by Y50-70 on 12.11.2017.
  */
 public class UserDAOImpl implements UserDAO {
     private Connection connection = null;
-
 
     @Override
     public boolean authorization(String login, String password) throws DAOException {
