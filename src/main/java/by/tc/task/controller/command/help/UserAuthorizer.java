@@ -31,7 +31,6 @@ public class UserAuthorizer implements Command {
                     ResponseConstruction.EQUALS +
                     ResponseConstruction.AFTER_REGISTRATION +
                     ResponseConstruction.COMMAND_DELIMETER);
-                //"FrontController?command=after_registration&message=norm"
             }
         }
         catch (ServiceException e){

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4465c488-fb18-481b-9832-f94987f69e89" name="Default" comment="added constants">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/ResponseConstruction.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/exception/RequestToDbException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/logger/log4j.properties" afterPath="" />
+    <list default="true" id="4465c488-fb18-481b-9832-f94987f69e89" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/tc/task/controller/FrontController.class" afterPath="$PROJECT_DIR$/target/classes/by/tc/task/controller/FrontController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/tc/task/controller/command/CommandDirector.class" afterPath="$PROJECT_DIR$/target/classes/by/tc/task/controller/command/CommandDirector.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/tc/task/controller/command/help/AfterRegistrationPage.class" afterPath="$PROJECT_DIR$/target/classes/by/tc/task/controller/command/help/AfterRegistrationPage.class" />
@@ -26,33 +23,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/by/tc/task/service/UserService.class" afterPath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/by/tc/task/service/UserService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/by/tc/task/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/by/tc/task/service/impl/UserServiceImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/FrontController.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/FrontController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/CommandDirector.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/CommandDirector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/AfterRegistrationPage.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/AfterRegistrationPage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/FilmGetter.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/FilmGetter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/IndexPage.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/IndexPage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserRegistrator.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserRegistrator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/AttributeKey.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/AttributeKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/CommandParam.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/CommandParam.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/PagePath.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/PagePath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/dao/UserDAO.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/dao/UserDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/dao/impl/UserDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/dao/impl/UserDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/service/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/service/impl/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/auth.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/auth.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/auth_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/auth_en.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/film.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/film.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/film_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/film_en.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/find.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/find.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/find_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/find_en.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/localization/find_ru.properties" afterPath="$PROJECT_DIR$/src/main/resources/localization/find_ru.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/localization/auth.properties" afterPath="$PROJECT_DIR$/target/classes/localization/auth.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/localization/auth_en.properties" afterPath="$PROJECT_DIR$/target/classes/localization/auth_en.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/localization/auth.properties" afterPath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/localization/auth.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/localization/auth_en.properties" afterPath="$PROJECT_DIR$/target/final-task/WEB-INF/classes/localization/auth_en.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/by/tc/task/dao/constant/PreparedStatement.java" afterPath="$PROJECT_DIR$/src/main/java/by/tc/task/dao/constant/PreparedState.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/logger/log/log.out" afterPath="$PROJECT_DIR$/src/main/resources/log/log4j2.xml" />
     </list>
     <list id="7cbaa59d-7889-45d3-9c84-7bfcbd193d6b" name="Failed commit: Default" comment="woops" />
     <list id="96e861bc-f558-4dac-9a19-a6bb6f12cf06" name="Rejected commit: Default" comment="woops" />
@@ -163,7 +138,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
@@ -183,11 +158,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserAuthorizer.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserAuthorizer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+            <state relative-caret-position="323">
+              <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -292,10 +267,10 @@
         <option value="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/CommandParam.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/CommandDirector.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/tc/task/controller/constant/ResponseConstruction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserRegistrator.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/tc/task/dao/constant/ConnectionConstant.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/tc/task/dao/impl/UserDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java" />
       </list>
     </option>
   </component>
@@ -1526,7 +1501,7 @@
       <workItem from="1511632315518" duration="11671000" />
       <workItem from="1511682131701" duration="9981000" />
       <workItem from="1511887459506" duration="2989000" />
-      <workItem from="1511904749924" duration="3742000" />
+      <workItem from="1511904749924" duration="3799000" />
     </task>
     <task id="LOCAL-00001" summary="bad loaclization">
       <created>1511261407268</created>
@@ -1626,11 +1601,18 @@
       <option name="project" value="LOCAL" />
       <updated>1511691999835</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="added logging and connection establishment was remade">
+      <created>1511908771583</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1511908771583</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141248000" />
+    <option name="totallyTimeSpent" value="141305000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1699,7 +1681,8 @@
     <MESSAGE value="added cookies for redirect requests" />
     <MESSAGE value="some additions" />
     <MESSAGE value="added constants" />
-    <option name="LAST_COMMIT_MESSAGE" value="added constants" />
+    <MESSAGE value="added logging and connection establishment was remade" />
+    <option name="LAST_COMMIT_MESSAGE" value="added logging and connection establishment was remade" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2103,14 +2086,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/CommandDirector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -2155,6 +2130,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/tc/task/controller/command/help/UserAuthorizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
           <folding />
         </state>
       </provider>
