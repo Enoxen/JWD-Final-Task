@@ -2,28 +2,58 @@ package by.tc.task.dao.impl;
 
 import by.tc.task.dao.UserDAO;
 import by.tc.task.dao.constant.ConnectionConstant;
-import by.tc.task.dao.constant.PreparedStatement;
+import by.tc.task.dao.constant.PreparedState;
 import by.tc.task.dao.constant.ResponseFromDb;
 import by.tc.task.dao.constant.RequestToDb;
 import by.tc.task.entity.Film;
 import by.tc.task.exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+
 
 /**
  * Created by Y50-70 on 12.11.2017.
  */
 public class UserDAOImpl implements UserDAO {
     private Connection connection = null;
+    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
+
+    @Override
+    public void establishConnectionToDb() {
+        try {
+            Class.forName(ConnectionConstant.DRIVER);
+            connection = DriverManager.getConnection(ConnectionConstant.URL, ConnectionConstant.LOGIN,
+                    ConnectionConstant.PASSWORD);
+        } catch (ClassNotFoundException e) {
+            logger.error("Problem with driver registration");
+
+        } catch (SQLException e) {
+            logger.error("Problem with connection");
+        }
+    }
+
+    @Override
+    public void destroyConnectionToDb() {
+        try{
+            if(connection != null){
+                connection.close();
+            }
+        } catch (SQLException e) {
+            logger.warn("Problems with closing the connection");
+        }
+    }
 
     @Override
     public boolean authorization(String login, String password) throws DAOException {
         try {
-            establishConnection();
-            java.sql.PreparedStatement statement = connection.prepareStatement(
-                    PreparedStatement.AUTHORIZE);
+            PreparedStatement statement = connection.prepareStatement(
+                    PreparedState.AUTHORIZE);
             statement.setString(RequestToDb.USER_LOGIN, login);
             statement.setString(RequestToDb.USER_PASSWORD, password);
             ResultSet result = statement.executeQuery();
@@ -34,17 +64,8 @@ public class UserDAOImpl implements UserDAO {
                     return true;
                 }
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            throw new DAOException("authorization problems", e);
         }
         return false;
     }
@@ -52,23 +73,12 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Film findFilm(String name) throws DAOException {
         try {
-            establishConnection();
-            java.sql.PreparedStatement statement = connection.prepareStatement(PreparedStatement.GET_FILM);
+            PreparedStatement statement = connection.prepareStatement(PreparedState.GET_FILM);
             statement.setString(RequestToDb.FILM_NAME, name);
             ResultSet result = statement.executeQuery();
             return makeFilmFromDbResponse(result);
         } catch (SQLException e) {
             throw new DAOException("problems with finding film", e);
-        }
-        finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
-            catch (SQLException e){
-                throw new DAOException(e);
-            }
         }
     }
 
@@ -81,10 +91,8 @@ public class UserDAOImpl implements UserDAO {
             }
             return film;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("problems with making film", e);
         }
-        return film;
-
     }
 
 
@@ -92,8 +100,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean registration(String login, String password) throws DAOException {
         try {
             if (!authorization(login, password)) {
-                establishConnection();
-                java.sql.PreparedStatement statement = connection.prepareStatement(PreparedStatement.REGISTER);
+                java.sql.PreparedStatement statement = connection.prepareStatement(PreparedState.REGISTER);
                 statement.setString(RequestToDb.USER_LOGIN, login);
                 statement.setString(RequestToDb.USER_PASSWORD, password);
                 statement.execute();
@@ -103,31 +110,6 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e) {
             throw new DAOException("problems with registration",e);
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    private void establishConnection() throws DAOException {
-        try {
-                if(connection == null) {
-                    Class.forName(ConnectionConstant.DRIVER);
-                    connection = DriverManager.getConnection(ConnectionConstant.URL,
-                            ConnectionConstant.LOGIN, ConnectionConstant.PASSWORD);
-                }
-                else if (connection.isClosed()){
-                    connection = DriverManager.getConnection(ConnectionConstant.URL,
-                            ConnectionConstant.LOGIN, ConnectionConstant.PASSWORD);
-                }
-        } catch (SQLException e) {
-            throw new DAOException("no connection to db");
-        } catch (ClassNotFoundException e) {
-            throw new DAOException("problems with db", e);
         }
     }
 }

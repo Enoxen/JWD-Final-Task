@@ -2,6 +2,7 @@ package by.tc.task.controller.command.help;
 
 import by.tc.task.controller.command.Command;
 import by.tc.task.controller.constant.AttributeKey;
+import by.tc.task.controller.constant.ResponseConstruction;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.ServiceFactory;
 import by.tc.task.service.UserService;
@@ -16,14 +17,19 @@ import java.io.IOException;
 public class UserRegistrator implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, IOException {
-        response.setContentType("text/html");
+        response.setContentType(AttributeKey.CONTENT_TYPE);
         String login = request.getParameter(AttributeKey.LOGIN).trim();
         String password = request.getParameter(AttributeKey.PASSWORD).trim();
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
         try {
             userService.registration(login, password);
-            response.sendRedirect("FrontController?command=after_registration&message=norm");
+            response.sendRedirect(ResponseConstruction.FRONT_CONRTOLLER +
+                    ResponseConstruction.QUESTION_MARK +
+                    ResponseConstruction.COMMAND +
+                    ResponseConstruction.EQUALS +
+                    ResponseConstruction.AFTER_REGISTRATION +
+                    ResponseConstruction.COMMAND_DELIMETER);
         }
         catch (ServiceException e){
             throw new ServiceException(e.getMessage(),e);

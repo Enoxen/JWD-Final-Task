@@ -16,6 +16,16 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO = factory.getUserDao();
 
     public UserServiceImpl(){}
+
+    public void establishConnectionToDb(){
+        userDAO.establishConnectionToDb();
+    }
+
+    @Override
+    public void destroyConnectionToDb() {
+        userDAO.destroyConnectionToDb();
+    }
+
     @Override
     public boolean authorization(String login, String password) throws ServiceException{
         try {

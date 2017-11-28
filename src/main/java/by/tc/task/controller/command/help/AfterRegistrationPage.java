@@ -18,7 +18,6 @@ public class AfterRegistrationPage implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException,
                                                             ServletException, IOException {
 
-
                 RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.FIND_FILM);
                 dispatcher.forward(request, response);
             }

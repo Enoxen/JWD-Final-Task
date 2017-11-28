@@ -11,5 +11,7 @@ public interface UserService {
     boolean authorization(String login, String password) throws ServiceException;
     boolean registration(String login, String password) throws ServiceException;
     Film findFilm(String name) throws ServiceException;
+    void establishConnectionToDb();
+    void destroyConnectionToDb();
 
 }

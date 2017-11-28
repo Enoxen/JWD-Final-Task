@@ -11,4 +11,5 @@ public class CommandParam {
     public static final String CHANGE_LOCALE = "change_locale";
     public static final String GO_TO_SIGNING_PAGE = "sign";
     public static final String COMMAND = "command";
+    public static final String GO_TO_INDEX = "index";
 }

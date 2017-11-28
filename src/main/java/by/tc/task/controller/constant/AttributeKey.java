@@ -11,5 +11,6 @@ public class AttributeKey {
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String LAST_REQUEST = "last_request";
+    public static final String CONTENT_TYPE = "text/html";
 
 }

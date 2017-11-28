@@ -2,6 +2,7 @@ package by.tc.task.controller.command.help;
 
 import by.tc.task.controller.command.Command;
 import by.tc.task.controller.constant.AttributeKey;
+import by.tc.task.controller.constant.PagePath;
 import by.tc.task.entity.Film;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.ServiceFactory;
@@ -24,7 +25,7 @@ public class FilmGetter implements Command {
         UserService userService = factory.getUserService();
         try {
             Film film = userService.findFilm(filmName);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/filmPage.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.FILM_PAGE);
             request.setAttribute(AttributeKey.SESSION_FILM, film);
             dispatcher.forward(request, response);
         }

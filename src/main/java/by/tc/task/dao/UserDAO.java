@@ -10,4 +10,6 @@ public interface UserDAO {
     boolean registration(String name, String surname)throws DAOException;
     boolean authorization(String login, String password) throws DAOException;
     Film findFilm(String name) throws DAOException;
+    void establishConnectionToDb();
+    void destroyConnectionToDb();
 }
