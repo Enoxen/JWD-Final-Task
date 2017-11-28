@@ -4,8 +4,6 @@ import by.tc.task.controller.command.Command;
 import by.tc.task.controller.constant.AttributeKey;
 import by.tc.task.controller.constant.PagePath;
 import by.tc.task.exception.ServiceException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

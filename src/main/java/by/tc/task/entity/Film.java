@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by Y50-70 on 18.11.2017.
  */
 public class Film implements Serializable {
+
+    private static final long serialVersionUID = 2300384072083630265L;
     private String name;
     private String genre;
 
