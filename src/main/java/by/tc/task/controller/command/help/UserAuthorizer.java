@@ -36,7 +36,9 @@ public class UserAuthorizer implements Command {
         catch (ServiceException e){
             throw new ServiceException(e.getMessage(),e);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();// и погасили исключение
+            // и радуемся
+            // а пользователю что в ответ отправим???
         }
     }
 }
