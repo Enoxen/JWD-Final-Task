@@ -21,11 +21,13 @@ import java.sql.ResultSet;
  * Created by Y50-70 on 12.11.2017.
  */
 public class UserDAOImpl implements UserDAO {
-    private Connection connection = null;
-    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
+    private Connection connection = null;// ошибка при реализации и работе в многопоточное среде
+    // в этом случае один коннекшн у тебя будет делиться между выполнением методов параллельными потоками
+    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);// сначала объявляешь логгер, а потом все остальное
 
     @Override
-    public void establishConnectionToDb() {
+    public void establishConnectionToDb() {// а когда ты собираешь вызывать эти методы
+        // или как ты собираешься сообщить пользователям твоего кода - как и когда им их надо вызывать
         try {
             Class.forName(ConnectionConstant.DRIVER);
             connection = DriverManager.getConnection(ConnectionConstant.URL, ConnectionConstant.LOGIN,
