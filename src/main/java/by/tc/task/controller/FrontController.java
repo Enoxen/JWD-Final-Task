@@ -52,7 +52,7 @@ public class FrontController extends HttpServlet {
         CommandDirector director = new CommandDirector();
         try{
             Command command = director.getCommand(commandType);
-            if(!commandType.equals(CommandParam.CHANGE_LOCALE)){
+            if(!commandType.equals(CommandParam.CHANGE_LOCALE)){// плохое решение, change-locale - это тоже команда
                 String lastRequest = request.getServletPath() + ResponseConstruction.QUESTION_MARK + request.getQueryString();
                 response.addCookie(new Cookie(AttributeKey.LAST_REQUEST, lastRequest));
             }

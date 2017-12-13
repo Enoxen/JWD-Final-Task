@@ -29,13 +29,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authorization(String login, String password) throws ServiceException{
         try {
-            if(Validator.isValidAuthData(login,password)) {
+            if(Validator.isValidAuthData(login,password)) {// пиши такой if через отрицание (!Validator.isValidAuthData(login,password)
                 return userDAO.authorization(login, password);
             }
             else return false;
         }
         catch (DAOException e){
-            throw new ServiceException(e);
+            throw new ServiceException(e);// сообщение
         }
     }
     @Override
