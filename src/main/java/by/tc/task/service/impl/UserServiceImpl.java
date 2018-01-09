@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
             catch (DAOException e){
-                throw new ServiceException(e);
+                throw new ServiceException("", e);
             }
 
     }

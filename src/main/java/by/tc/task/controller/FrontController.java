@@ -25,10 +25,7 @@ import java.io.PrintWriter;
  */
 
 public class FrontController extends HttpServlet {
-        /*
-        Проблема с томкатом и локализацией была решена, так что моё сообщение на training.by
-        более не действительно
-         */
+
         private ServiceFactory factory = ServiceFactory.getInstance();
         private UserService userService = factory.getUserService();
 

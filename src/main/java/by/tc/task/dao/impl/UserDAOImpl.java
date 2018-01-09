@@ -2,7 +2,7 @@ package by.tc.task.dao.impl;
 
 import by.tc.task.dao.UserDAO;
 import by.tc.task.dao.constant.ConnectionConstant;
-import by.tc.task.dao.constant.PreparedState;
+import by.tc.task.dao.constant.PreparedRequest;
 import by.tc.task.dao.constant.ResponseFromDb;
 import by.tc.task.dao.constant.RequestToDb;
 import by.tc.task.entity.Film;
@@ -53,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean authorization(String login, String password) throws DAOException {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    PreparedState.AUTHORIZE);
+                    PreparedRequest.AUTHORIZE);
             statement.setString(RequestToDb.USER_LOGIN, login);
             statement.setString(RequestToDb.USER_PASSWORD, password);
             ResultSet result = statement.executeQuery();
@@ -73,7 +73,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Film findFilm(String name) throws DAOException {
         try {
-            PreparedStatement statement = connection.prepareStatement(PreparedState.GET_FILM);
+            PreparedStatement statement = connection.prepareStatement(PreparedRequest.GET_FILM);
             statement.setString(RequestToDb.FILM_NAME, name);
             ResultSet result = statement.executeQuery();
             return makeFilmFromDbResponse(result);
@@ -100,7 +100,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean registration(String login, String password) throws DAOException {
         try {
             if (!authorization(login, password)) {
-                java.sql.PreparedStatement statement = connection.prepareStatement(PreparedState.REGISTER);
+                java.sql.PreparedStatement statement = connection.prepareStatement(PreparedRequest.REGISTER);
                 statement.setString(RequestToDb.USER_LOGIN, login);
                 statement.setString(RequestToDb.USER_PASSWORD, password);
                 statement.execute();

@@ -25,7 +25,7 @@ public class UserAuthorizer implements Command {
         UserService userService = factory.getUserService();
         try {
             if(userService.authorization(login, password)){
-                response.sendRedirect(ResponseConstruction.FRONT_CONRTOLLER +
+                response.sendRedirect(ResponseConstruction.FRONT_CONTROLLER +
                     ResponseConstruction.QUESTION_MARK +
                     ResponseConstruction.COMMAND +
                     ResponseConstruction.EQUALS +
