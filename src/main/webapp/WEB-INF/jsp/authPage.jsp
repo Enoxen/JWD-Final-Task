@@ -42,7 +42,7 @@
         <br>${login}:
         <br><input type="text" name="login" value="" required pattern="^([A-Za-z]+)|([А-Яа-я]+)$">
         <br>${password}:
-        <br><input type="password" name="password" value="" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+        <br><input type="password" name="password" value="" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$">
         <input type="submit" value="${submit}">
     </form>
 </div>
