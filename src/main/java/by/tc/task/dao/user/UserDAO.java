@@ -11,4 +11,6 @@ public interface UserDAO {
     boolean changePassword(String login,String oldPassword,String newPassword) throws ChangeUserDataDAOException;
     boolean changePassword(String email,String newPassword) throws ChangeUserDataDAOException;
     boolean changeLogin(String oldLogin, String newLogin, String confirmPassword) throws AuthDAOException;
+    boolean changeEmail(String login, String newEmail, String password) throws AuthDAOException;
+    //boolean deleteReview();
 }

@@ -2,11 +2,9 @@ package by.tc.task.service.impl;
 
 import by.tc.task.dao.DAOFactory;
 import by.tc.task.dao.user.UserDAO;
-import by.tc.task.entity.Film;
-import by.tc.task.exception.DAOException;
+import by.tc.task.entity.FilmData;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.UserService;
-import by.tc.task.service.validation.Validator;
 
 /**
  * Created by Y50-70 on 12.11.2017.
@@ -29,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Film findFilm(String name) throws ServiceException {
+    public FilmData findFilm(String name) throws ServiceException {
         return null;
     }
 

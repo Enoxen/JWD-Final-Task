@@ -3,7 +3,7 @@ package by.tc.task.controller.command.help;
 import by.tc.task.controller.command.Command;
 import by.tc.task.controller.constant.AttributeKey;
 import by.tc.task.controller.constant.PagePath;
-import by.tc.task.entity.Film;
+import by.tc.task.entity.FilmData;
 import by.tc.task.exception.ServiceException;
 import by.tc.task.service.ServiceFactory;
 import by.tc.task.service.UserService;
@@ -24,9 +24,9 @@ public class FilmGetter implements Command {
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
         try {
-            Film film = userService.findFilm(filmName);
+            FilmData filmData = userService.findFilm(filmName);
             RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.FILM_PAGE);
-            request.setAttribute(AttributeKey.SESSION_FILM, film);
+            request.setAttribute(AttributeKey.SESSION_FILM, filmData);
             dispatcher.forward(request, response);
         }
         catch (ServiceException e){

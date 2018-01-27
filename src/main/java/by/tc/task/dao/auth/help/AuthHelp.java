@@ -17,6 +17,7 @@ import java.sql.SQLException;
  */
 public class AuthHelp {
     private static final Logger logger = LogManager.getLogger(AuthHelp.class);
+
     public static boolean authEmail(String email, Connection connection) throws ChangeUserDataDAOException, SQLException {
         PreparedStatement emailAuth = null;
         ResultSet dbResponse = null;
@@ -35,11 +36,7 @@ public class AuthHelp {
         }
         finally {
             if(dbResponse != null){
-                try {
                     dbResponse.close();
-                } catch (SQLException e) {
-                    logger.error(e.getStackTrace());
-                }
             }
             if(emailAuth != null){
                 emailAuth.close();
@@ -51,20 +48,16 @@ public class AuthHelp {
         ResultSet dbResponse = null;
         try{
             passAuth = connection.prepareStatement(DAODbQuery.SQL_GET_USER_PASSWORD);
-            System.out.println("kek");
             passAuth.setString(1, login);
             dbResponse = passAuth.executeQuery();
             if(dbResponse.next()){
-                System.out.println("kek1");
                 String dbPassword = dbResponse.getString(1);
                 String dbSalt = dbResponse.getString(2);
                 System.out.println();
                 if( Encryptor.getPasswordHashCode(password,dbSalt).equals(dbPassword)){
-                    System.out.println("true");
                     return true;
                 }
                 else {
-                    System.out.println("falsedfsdf");
                     return false;
                 }
             }
@@ -104,4 +97,5 @@ public class AuthHelp {
             }
         }
     }
+
 }

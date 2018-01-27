@@ -1,6 +1,6 @@
 package by.tc.task.service;
 
-import by.tc.task.entity.Film;
+import by.tc.task.entity.FilmData;
 import by.tc.task.exception.ServiceException;
 
 
@@ -10,7 +10,7 @@ import by.tc.task.exception.ServiceException;
 public interface UserService {
     boolean authorization(String login, String password) throws ServiceException;
     boolean registration(String login, String password) throws ServiceException;
-    Film findFilm(String name) throws ServiceException;
+    FilmData findFilm(String name) throws ServiceException;
     void establishConnectionToDb();
     void destroyConnectionToDb();
 

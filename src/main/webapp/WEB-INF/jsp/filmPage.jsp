@@ -5,20 +5,20 @@
 <head>
     <title>Title</title>
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.film" var="loc"/>
-    <fmt:message bundle="${loc}" key="film.name" var="name"/>
-    <fmt:message bundle="${loc}" key="film.genre" var="genre"/>
+    <fmt:setBundle basename="localization.filmData" var="loc"/>
+    <fmt:message bundle="${loc}" key="filmData.name" var="name"/>
+    <fmt:message bundle="${loc}" key="filmData.genre" var="genre"/>
 </head>
 <body>
-    <c:if test="${requestScope.film.name != null}">
+    <c:if test="${requestScope.filmData.name != null}">
         <table border="1">
             <tr>
                 <td>${name}</td>
                 <td>${genre}</td>
             </tr>
             <tr>
-                <td><c:out value="${requestScope.film.name}"/></td>
-                <td><c:out value="${requestScope.film.genre}"/></td>
+                <td><c:out value="${requestScope.filmData.name}"/></td>
+                <td><c:out value="${requestScope.filmData.genre}"/></td>
             </tr>
         </table>
 

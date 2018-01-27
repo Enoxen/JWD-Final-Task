@@ -11,6 +11,7 @@ import by.tc.task.exception.DataSourceDAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.xml.crypto.Data;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -115,6 +116,27 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (DataSourceDAOException|SQLException|NoSuchAlgorithmException e) {
             throw new AuthDAOException("change login error", e);
+        }
+    }
+
+    @Override
+    public boolean changeEmail(String login, String newEmail, String password) throws AuthDAOException {
+        Connection connection = null;
+        PreparedStatement updateEmail = null;
+        try{
+            connection = DataSource.getConnection();
+            if(AuthHelp.authPassword(login,password,connection)){
+                updateEmail = connection.prepareStatement(DAODbQuery.SQL_UPDATE_USER_EMAIL_BY_LOGIN);
+                updateEmail.setString(1,newEmail);
+                updateEmail.setString(2,login);
+                int rowsUpdate = updateEmail.executeUpdate();
+                return rowsUpdate != 0;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException|NoSuchAlgorithmException|DataSourceDAOException e) {
+            throw new AuthDAOException("change email error", e);
         }
     }
 }

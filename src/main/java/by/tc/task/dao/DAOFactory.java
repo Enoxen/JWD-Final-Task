@@ -1,5 +1,7 @@
 package by.tc.task.dao;
 
+import by.tc.task.dao.admin.AdminDAO;
+import by.tc.task.dao.admin.impl.AdminDAOImpl;
 import by.tc.task.dao.auth.AuthDAO;
 import by.tc.task.dao.auth.impl.AuthImpl;
 import by.tc.task.dao.datasource.DataSource;
@@ -14,7 +16,13 @@ public class DAOFactory {
     private static final DAOFactory instance = new DAOFactory();
     private final UserDAO userDao = new UserDAOImpl();
     private final AuthDAO authDAO = new AuthImpl();
-    private DAOFactory(){}
+    private final AdminDAO adminDAO = new AdminDAOImpl();
+
+
+
+    private DAOFactory(){
+
+    }
 
 
     public UserDAO getUserDao(){
@@ -30,6 +38,9 @@ public class DAOFactory {
         } catch (DataSourceDAOException e) {
             e.printStackTrace();
         }
+    }
+    public AdminDAO getAdminDAO() {
+        return adminDAO;
     }
 }
 

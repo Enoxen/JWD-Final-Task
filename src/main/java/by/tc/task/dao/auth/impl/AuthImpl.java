@@ -29,16 +29,18 @@ public class AuthImpl implements AuthDAO {
             connection = DataSource.getConnection();
             if(isLoginFree(login, connection)) {
 
-                PreparedStatement addUser = connection.prepareStatement(DAODbQuery.SQL_ADD_NEW_USER);
+                int rowsUser;
+                try (PreparedStatement addUser = connection.prepareStatement(DAODbQuery.SQL_ADD_NEW_USER)) {
 
-                String salt = Encryptor.generateSalt();
+                    String salt = Encryptor.generateSalt();
 
-                addUser.setString(1, login);
-                addUser.setString(2, email);
-                addUser.setString(3, Encryptor.getPasswordHashCode(password, salt));
-                addUser.setString(4, salt);
-                addUser.setString(5,role);
-                int rowsUser = addUser.executeUpdate();
+                    addUser.setString(1, login);
+                    addUser.setString(2, email);
+                    addUser.setString(3, Encryptor.getPasswordHashCode(password, salt));
+                    addUser.setString(4, salt);
+                    addUser.setString(5, role);
+                    rowsUser = addUser.executeUpdate();
+                }
                 return rowsUser != 0;
             }
             else {
@@ -53,82 +55,57 @@ public class AuthImpl implements AuthDAO {
         }
     }
     private boolean isLoginFree(String login, Connection connection) throws AuthDAOException {
-        ResultSet selectResult = null;
         try{
-            PreparedStatement isFree = connection.prepareStatement(DAODbQuery.SQL_IS_LOGIN_FREE);
-            isFree.setString(1,login);
-            selectResult = isFree.executeQuery();
-            if(selectResult.next()) {
-                String str = selectResult.getString(1);
-                System.out.println(str);
-                return  str == null;
-            }
-            else {
-                return true;
-            }
 
+            try (PreparedStatement isFree = connection.prepareStatement(DAODbQuery.SQL_IS_LOGIN_FREE)) {
+                isFree.setString(1, login);
+                try (ResultSet selectResult = isFree.executeQuery()) {
+                    if (selectResult.next()) {
+                        String str = selectResult.getString(1);
+                        System.out.println(str);
+                        return str == null;
+                    } else {
+                        return true;
+                    }
+                }
+            }
         } catch (SQLException e) {
             throw new AuthDAOException("login db validation error", e);
-        }
-        finally {
-            try {
-                if(selectResult != null){
-                    selectResult.close();
-                }
-            } catch (SQLException e) {
-                logger.error("problems with closing ResultSet");
-            }
         }
     }
     @Override
     public AuthUserData authUser(String login, String password) throws AuthDAOException {
         Connection connection = null;
-        PreparedStatement authUser = null;
-        ResultSet authDataFromDb = null;
         try {
             connection = DataSource.getConnection();
-            authUser = connection.prepareStatement(DAODbQuery.SQL_AUTHORIZE_USER_BY_LOGIN);
+            try (PreparedStatement authUser = connection.prepareStatement(DAODbQuery.SQL_AUTHORIZE_USER_BY_LOGIN)) {
 
-            authUser.setString(1, login);
-            authDataFromDb = authUser.executeQuery();
+                authUser.setString(1, login);
+                try (ResultSet authDataFromDb = authUser.executeQuery()) {
+                    if (authDataFromDb.isBeforeFirst()) {
 
-            if(authDataFromDb.next()){
+                        authDataFromDb.next();
+                        String dbLogin = authDataFromDb.getString(1);
+                        String dbPassword = authDataFromDb.getString(2);
+                        String dbSalt = authDataFromDb.getString(3);
+                        String dbRole = authDataFromDb.getString(4);
+                        int dbUserId = authDataFromDb.getInt(5);
 
-                String dbLogin = authDataFromDb.getString(1);
-                String dbPassword = authDataFromDb.getString(2);
-                String dbSalt = authDataFromDb.getString(3);
-                String dbRole = authDataFromDb.getString(4);
-                int dbUserId = authDataFromDb.getInt(5);
-
-                if(login.equals(dbLogin) && Encryptor.getPasswordHashCode(password,dbSalt).equals(dbPassword)){
-                    return makeAuthDataFromDbResponse(dbLogin,dbRole,dbUserId);
+                        if (login.equals(dbLogin) && Encryptor.getPasswordHashCode(password, dbSalt).equals(dbPassword)) {
+                            return makeAuthDataFromDbResponse(dbLogin, dbRole, dbUserId);
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        return null;
+                    }
                 }
-                else {
-                    return null;
-                }
-            }
-            else{
-                return null;
             }
         } catch (DataSourceDAOException|SQLException|NoSuchAlgorithmException e) {
             throw new AuthDAOException("user auth problems", e);
         }
         finally {
             DataSource.closeConnection(connection);
-            if(authDataFromDb != null){
-                try {
-                    authDataFromDb.close();
-                } catch (SQLException e) {
-                    logger.error(e.getMessage() + "DaoAuth.authUser()");
-                }
-            }
-            if(authUser != null){
-                try {
-                    authUser.close();
-                } catch (SQLException e) {
-                    logger.error(e.getMessage() + "DaoAuth.authUser()");
-                }
-            }
         }
     }
 
