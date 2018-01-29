@@ -22,6 +22,8 @@ public class DAODbQuery {
     public static final String SQL_GET_FILM_ID_BY_TITLE = "select film_id from film where (film_default_title = ?) or (film_loc_title = ?)";
     public static final String SQL_CONNECT_FILM_WITH_GENRE = "insert into film_has_genre_test(film_id,genre_id) values(?,?)";
     public static final String SQL_GET_MAX_FILM_ID = "select max(film_id) from film_test";
+    public static final String SQL_CALL_RECOUNT_RATING = "call recountRating(?,?,?)";
+
     // admin queries
     public static final String SQL_BAN_USER_BY_LOGIN = "update user set is_banned = ? where username = ?";
 
@@ -38,4 +40,14 @@ public class DAODbQuery {
     public static final String SQL_GET_DIRECTOR_MAX_ID = "select max(director_id) from director_test";
     public static final String SQL_CONNECT_DIRECTOR_WITH_A_FILM = "insert into director_has_film_test(director_id, film_id) values(?,?)";
     public static final String SQL_INSERT_DIRECTOR_INTO_TABLE = "insert into director_test(director_name,director_surname,director_name_EN, director_surname_EN) values(?,?,?,?)";
+
+    //user action queries
+    public static final String SQL_ADD_FILM_TO_FAVORITE = "insert into favorite_films (film_id, user_id) values(?,?)";
+    public static final String SQL_DELETE_FROM_FAVORITE = "delete from favorite_films where user_id = ? and film_id = ?";
+    public static final String SQL_FOLLOW_USER = "insert into user_follows (user_id,user_to_follow_id) values(?,?)";
+    public static final String SQL_UNFOLLOW_USER = "delete from user_follows where user_id = ? and user_to_follow_id = ?";
+    public static final String SQL_ADD_REVIEW = "insert into reviews(review_text, film_id, user_id) values(?,?,?)";
+    public static final String SQL_DELETE_USER_REVIEW = "delete from reviews where id_review = ?";
+
+    private DAODbQuery(){}
 }

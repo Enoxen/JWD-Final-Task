@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface SearchDAO {
     FilmData getRandomFilm();
-    List<FilmData> advanceFilmdSearch(FilmData filmData);
+    List<FilmData> advanceFilmSearch(FilmData filmData);
     List<FilmData> searchByPerson(Person person);
 }

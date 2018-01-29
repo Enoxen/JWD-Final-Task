@@ -28,7 +28,7 @@ public class SearchDAOImpl implements SearchDAO {
     }
 
     @Override
-    public List<FilmData> advanceFilmdSearch(FilmData filmData) {
+    public List<FilmData> advanceFilmSearch(FilmData filmData) {
         return null;
     }
 

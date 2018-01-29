@@ -1,0 +1,23 @@
+package by.tc.task.dao.exception;
+
+import by.tc.task.exception.DAOException;
+
+/**
+ * Created by Y50-70 on 29.01.2018.
+ */
+public class ChangeDbDataException extends DAOException {
+    public ChangeDbDataException() {
+    }
+
+    public ChangeDbDataException(String message) {
+        super(message);
+    }
+
+    public ChangeDbDataException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ChangeDbDataException(Throwable cause) {
+        super(cause);
+    }
+}
