@@ -1,6 +1,8 @@
 package by.tc.task.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,14 +14,21 @@ public class FilmData implements Serializable {
     private static final long serialVersionUID = 2300384072083630265L;
     private String defaultTitle;
     private String localTitle;
-    private float rating;
     private int year;
-    private int filmId;
+    private int[] interval;
     private String defaultFilmDescription;
     private String localFilmDescription;
-    private List<Integer> genres;
-
+    private List<Integer> genresIn;
     public FilmData(){
+        interval = new int[2];
+    }
+
+    public int[] getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int[] interval) {
+        this.interval = interval;
     }
 
     public String getDefaultTitle() {
@@ -38,28 +47,12 @@ public class FilmData implements Serializable {
         this.localTitle = localTitle;
     }
 
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
     public int getYear() {
         return year;
     }
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public int getFilmId() {
-        return filmId;
-    }
-
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
     }
 
     public String getDefaultFilmDescription() {
@@ -78,32 +71,31 @@ public class FilmData implements Serializable {
         this.localFilmDescription = localFilmDescription;
     }
 
-    public List<Integer> getGenres() {
-        return genres;
+    public List<Integer> getGenresIn() {
+        return genresIn;
     }
 
-    public void setGenres(List<Integer> genres) {
-        this.genres = genres;
+    public void setGenresIn(List<Integer> genresIn) {
+        this.genresIn = genresIn;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FilmData filmData = (FilmData) o;
-        return Float.compare(filmData.rating, rating) == 0 &&
-                year == filmData.year &&
-                filmId == filmData.filmId &&
-                Objects.equals(defaultTitle, filmData.defaultTitle) &&
-                Objects.equals(localTitle, filmData.localTitle) &&
-                Objects.equals(defaultFilmDescription, filmData.defaultFilmDescription) &&
-                Objects.equals(localFilmDescription, filmData.localFilmDescription) &&
-                Objects.equals(genres, filmData.genres);
+        FilmData data = (FilmData) o;
+        return year == data.year &&
+                Objects.equals(defaultTitle, data.defaultTitle) &&
+                Objects.equals(localTitle, data.localTitle) &&
+                Arrays.equals(interval, data.interval) &&
+                Objects.equals(defaultFilmDescription, data.defaultFilmDescription) &&
+                Objects.equals(localFilmDescription, data.localFilmDescription) &&
+                Objects.equals(genresIn, data.genresIn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(defaultTitle, localTitle, rating, year, filmId, defaultFilmDescription, localFilmDescription, genres);
+        return Objects.hash(defaultTitle, localTitle, year, interval, defaultFilmDescription, localFilmDescription, genresIn);
     }
 
     @Override
@@ -111,12 +103,11 @@ public class FilmData implements Serializable {
         return "FilmData{" +
                 "defaultTitle='" + defaultTitle + '\'' +
                 ", localTitle='" + localTitle + '\'' +
-                ", rating=" + rating +
                 ", year=" + year +
-                ", filmId=" + filmId +
+                ", interval=" + Arrays.toString(interval) +
                 ", defaultFilmDescription='" + defaultFilmDescription + '\'' +
                 ", localFilmDescription='" + localFilmDescription + '\'' +
-                ", genres=" + genres +
+                ", genresIn=" + genresIn +
                 '}';
     }
 }

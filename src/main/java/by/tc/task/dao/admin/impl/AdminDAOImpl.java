@@ -163,7 +163,7 @@ public class AdminDAOImpl implements AdminDAO {
     private boolean insertFilmGenres(FilmData filmData, int filmId, Connection connection) throws SQLException {
         int[] rowsUpd;
         try (PreparedStatement insertGenres = connection.prepareStatement(DAODbQuery.SQL_CONNECT_FILM_WITH_GENRE)) {
-            List<Integer> genresId = filmData.getGenres();
+            List<Integer> genresId = filmData.getGenresIn();
             for(Integer id: genresId){
                 insertGenres.setInt(1,filmId);
                 insertGenres.setInt(2,id);

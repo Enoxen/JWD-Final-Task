@@ -5,6 +5,8 @@ import by.tc.task.dao.admin.impl.AdminDAOImpl;
 import by.tc.task.dao.auth.AuthDAO;
 import by.tc.task.dao.auth.impl.AuthImpl;
 import by.tc.task.dao.datasource.DataSource;
+import by.tc.task.dao.search.SearchDAO;
+import by.tc.task.dao.search.impl.SearchDAOImpl;
 import by.tc.task.dao.user.impl.UserDAOImpl;
 import by.tc.task.dao.user.UserDAO;
 import by.tc.task.exception.DataSourceDAOException;
@@ -17,8 +19,11 @@ public class DAOFactory {
     private final UserDAO userDao = new UserDAOImpl();
     private final AuthDAO authDAO = new AuthImpl();
     private final AdminDAO adminDAO = new AdminDAOImpl();
+    private final SearchDAO searchDAO = new SearchDAOImpl();
 
-
+    public SearchDAO getSearchDAO() {
+        return searchDAO;
+    }
 
     private DAOFactory(){
 
