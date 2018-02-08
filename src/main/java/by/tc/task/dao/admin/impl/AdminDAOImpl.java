@@ -7,9 +7,8 @@ import by.tc.task.dao.exception.AdminDAOException;
 import by.tc.task.dao.help.DbGetDataHelp;
 import by.tc.task.entity.FilmData;
 import by.tc.task.entity.Person;
-import by.tc.task.exception.DataSourceDAOException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.tc.task.dao.exception.DataSourceDAOException;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,7 +20,7 @@ import java.util.List;
  * Created by Y50-70 on 12.01.2018.
  */
 public class AdminDAOImpl implements AdminDAO {
-    private static final Logger logger = LogManager.getLogger(AdminDAOImpl.class);
+
     @Override
     public void addFilm(FilmData filmData, List<Person> persons) throws AdminDAOException {
         Connection connection = null;
@@ -99,6 +98,61 @@ public class AdminDAOImpl implements AdminDAO {
             throw new AdminDAOException("film check error", e);
         }
     }
+
+    @Override
+    public boolean deleteFilmFromDb(int filmId) throws AdminDAOException {
+        Connection connection = null;
+        try{
+            connection = DataSource.getConnection();
+            try (PreparedStatement deleteFilm = connection.prepareStatement(DAODbQuery.SQL_CALL_DELETE_FILM_FROM_DB)) {
+                deleteFilm.setInt(1, filmId);
+                deleteFilm.executeUpdate();
+                return true;
+            }
+        } catch (DataSourceDAOException|SQLException e) {
+            throw new AdminDAOException("delete film error", e);
+        }
+        finally {
+            DataSource.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public boolean giveUserAdminRights(String userLogin) throws AdminDAOException {
+        Connection connection = null;
+        try{
+            connection = DataSource.getConnection();
+            try (PreparedStatement admin = connection.prepareStatement(DAODbQuery.SQL_GIVE_ADMIN_RIGHTS)) {
+                admin.setString(1,userLogin);
+                admin.executeUpdate();
+                return true;
+            }
+        } catch (DataSourceDAOException|SQLException e) {
+            throw new AdminDAOException("give admin rights error", e);
+        }
+        finally {
+            DataSource.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public boolean takeAdminRightsFromUser(String userLogin) throws AdminDAOException {
+        Connection connection = null;
+        try{
+            connection = DataSource.getConnection();
+            try (PreparedStatement admin = connection.prepareStatement(DAODbQuery.SQL_REMOVE_ADMIN_RIGHTS)) {
+                admin.setString(1,userLogin);
+                admin.executeUpdate();
+                return true;
+            }
+        } catch (DataSourceDAOException|SQLException e) {
+            throw new AdminDAOException("give admin rights error", e);
+        }
+        finally {
+            DataSource.closeConnection(connection);
+        }
+    }
+
 
     private boolean insertPersonToDb(Person person, int filmId, Connection connection) throws SQLException {
         String connectStatement;

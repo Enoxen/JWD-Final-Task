@@ -15,7 +15,6 @@ import java.sql.SQLException;
  * Created by Y50-70 on 12.01.2018.
  */
 public class AuthHelp {
-    private static final Logger logger = LogManager.getLogger(AuthHelp.class);
 
     public static boolean authEmail(String email, Connection connection) throws SQLException {
         try (PreparedStatement emailAuth = connection.prepareStatement(DAODbQuery.SQL_AUTH_USER_EMAIL)) {

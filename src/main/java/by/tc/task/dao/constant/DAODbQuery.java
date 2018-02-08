@@ -1,5 +1,6 @@
 package by.tc.task.dao.constant;
 
+
 /**
  * Created by Y50-70 on 12.11.2017.
  */
@@ -8,7 +9,7 @@ public class DAODbQuery {
     // auth user queries
     public static final  String SQL_IS_LOGIN_FREE = "select username from user where username = ?";
     public static final String SQL_ADD_NEW_USER = "insert into user (username, email, password, salt, role) values(?,?,?,?,?)";
-    public static final String SQL_AUTHORIZE_USER_BY_LOGIN = "select username, password, salt, role,user_id from user where (username = ?)";
+    public static final String SQL_AUTHORIZE_USER_BY_LOGIN = "select username, password, salt, role,user_id, email from user where (username = ?)";
     public static final String SQL_UPDATE_USER_PASSWORD_BY_LOGIN = "update user set password = ?, salt = ? where username = ?";
     public static final String SQL_GET_USER_PASSWORD = "select password, salt from user where username = ?";
     public static final String SQL_UPDATE_USER_PASSWORD_BY_EMAIL = "update user set password = ? where email = ?";
@@ -16,9 +17,13 @@ public class DAODbQuery {
     public static final String SQL_UPDATE_USER_LOGIN = "update user set username = ? where user_id = ?";
     public static final String SQL_GET_USER_ID_BY_LOGIN = "select user_id from user where username = ?";
     public static final String SQL_UPDATE_USER_EMAIL_BY_LOGIN = "update user set email = ? where username = ?";
-
+    public static final String SQL_GET_UPDATED_USER_DATA = "select user_id, username, email, role, is_banned from user where username = ? xor email = ?";
     // admin queries
     public static final String SQL_BAN_USER_BY_LOGIN = "update user set is_banned = ? where username = ?";
+    public static final String SQL_CALL_DELETE_FILM_FROM_DB = "call delete_film(?)";
+    public static final String SQL_GIVE_ADMIN_RIGHTS = "update user set role = 'admin'  where username = ?";
+    public static final String SQL_REMOVE_ADMIN_RIGHTS = "update user set role = 'user'  where username = ?";
+
 
     //actor queries
     public static final String SQL_INSERT_ACTOR_INTO_TABLE = "insert into actor_test(actor_name, actor_surname, actor_name_EN, actor_surname_EN) values(?,?,?,?)";
@@ -48,109 +53,19 @@ public class DAODbQuery {
     public static final String SQL_CONNECT_FILM_WITH_GENRE = "insert into film_has_genre_test(film_id,genre_id) values(?,?)";
     public static final String SQL_GET_MAX_FILM_ID = "select max(film_id) from film_test";
     public static final String SQL_CALL_RECOUNT_RATING = "call recountRating(?,?,?)";
-    public static final String SQL_ADVANCED_SEARCH_TITLE_NOT_NULL = "select  film.film_id, film.film_rating,film.film_default_title, film.film_votes, film.film_year, film.film_default_descripption,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name,' ',actor.actor_surname) as actor,\n" +
-            "group_concat(distinct director.director_name,' ',director.director_surname) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, film.film_default_title) and\n" +
-            "((film.film_year = ? xor (film.film_year >= ? and film.film_year <= ?)) and film_genre.idfilm_genre = ?)\n" +
-            " group by film.film_id;";
-    public static final String SQL_ADVANCED_SEARCH_TITLE_NOT_NULL_EN = "select  film.film_id, film.film_rating,film.film_loc_title, film.film_votes, film.film_year, film.film_loc_description,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre_EN) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name_EN,' ',actor.actor_surname_EN) as actor,\n" +
-            "group_concat(distinct director.director_name_EN,' ',director.director_surname_EN) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, film.film_loc_title) and\n" +
-            "((film.film_year = ? xor (film.film_year >= ? and film.film_year <= ?)) and film_genre.idfilm_genre = ?)\n" +
-            " group by film.film_id;";
-    public static final String SQL_ADVANCED_SEARCH_NULL_TITLE = "select  film.film_id, film.film_rating,film.film_default_title, film.film_votes, film.film_year, film.film_default_descripption,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name,' ',actor.actor_surname) as actor,\n" +
-            "group_concat(distinct director.director_name,' ',director.director_surname) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, film.film_default_title) or " +
-            "(film.film_year = ? xor (film.film_year >= ? and film.film_year <= ?) or film_genre.idfilm_genre = ?)\n" +
-            " group by film.film_id;";
-    public static final String SQL_ADVANCED_SEARCH_NULL_TITLE_EN = "select  film.film_id, film.film_rating,film.film_loc_title, film.film_votes, film.film_year, film.film_loc_description,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre_EN) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name_EN,' ',actor.actor_surname_EN) as actor,\n" +
-            "group_concat(distinct director.director_name_EN,' ',director.director_surname_EN) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, film.film_loc_title) or((film.film_year = ? xor (film.film_year >= ? and film.film_year <= ?)) or film_genre.idfilm_genre = ?)\n" +
-            " group by film.film_id;";
-    public static final String SQL_SEARCH_FILM_BY_ACTOR = "select  film.film_id, film.film_rating,film.film_default_title, film.film_votes, film.film_year, film.film_default_descripption,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name,' ',actor.actor_surname) as actor,\n" +
-            "group_concat(distinct director.director_name,' ',director.director_surname) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, actor_name) and locate(?, actor_surname) group by film.film_id;";
-    public static final String SQL_SEARCH_FILM_BY_ACTOR_EN = "select  film.film_id, film.film_rating,film.film_loc_title, film.film_votes, film.film_year, film.film_loc_description,\n" +
-            "\" +\n" +
-            "            \"GROUP_CONCAT(distinct film_genre.film_genre_EN) as genre,\\n\" +\n" +
-            "            \"GROUP_CONCAT(distinct actor.actor_name_EN,' ',actor.actor_surname_EN) as actor,\\n\" +\n" +
-            "            \"group_concat(distinct director.director_name_EN,' ',director.director_surname_EN) as director\\n\" +\n" +
-            "            \"from film\\n\" +\n" +
-            "            \"JOIN film_has_genre ON film.film_id = film_has_genre.film_id\\n\" +\n" +
-            "            \"JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\\n\" +\n" +
-            "            \"join actor_has_film on film.film_id = actor_has_film.film_id\\n\" +\n" +
-            "            \"join actor on actor_has_film.actor_id = actor.actor_id \\n\" +\n" +
-            "            \"join director_has_film on film.film_id = director_has_film.film_id\\n\" +\n" +
-            "            \"join director on director_has_film.director_id = director.director_id \\n\" +\n" +
-            "            \"where locate(?, actor.actor_name_EN) and locate(?, actor.actor_surname_EN) group by film.film_id;";
-    public static final String SQL_SEARCH_FILM_BY_DIRECTOR = "select  film.film_id, film.film_rating,film.film_default_title, film.film_votes, film.film_year, film.film_default_descripption,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name,' ',actor.actor_surname) as actor,\n" +
-            "group_concat(distinct director.director_name,' ',director.director_surname) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, director.director_name) and locate(?, director.director_surname) group by film.film_id;";
-    public static final String SQL_SEARCH_FILM_BY_DIRECTOR_EN = "select  film.film_id, film.film_rating,film.film_loc_title, film.film_votes, film.film_year, film.film_loc_description,\n" +
-            "GROUP_CONCAT(distinct film_genre.film_genre_EN) as genre,\n" +
-            "GROUP_CONCAT(distinct actor.actor_name_EN,' ',actor.actor_surname_EN) as actor,\n" +
-            "group_concat(distinct director.director_name_EN,' ',director.director_surname_EN) as director\n" +
-            "from film\n" +
-            "JOIN film_has_genre ON film.film_id = film_has_genre.film_id\n" +
-            "JOIN film_genre ON film_has_genre.genre_id = film_genre.idfilm_genre\n" +
-            "join actor_has_film on film.film_id = actor_has_film.film_id\n" +
-            "join actor on actor_has_film.actor_id = actor.actor_id \n" +
-            "join director_has_film on film.film_id = director_has_film.film_id\n" +
-            "join director on director_has_film.director_id = director.director_id \n" +
-            "where locate(?, director.director_name_EN) and locate(?, director.director_surname_EN) group by film.film_id;";
+    public static final String SQL_GET_ALL_FILM_ID = "select film_id from film;";
+    public static final String SQL_GET_FILM_BY_ID = "select film_id,film_default_title, film_default_descripption,f from film;";
+    public static final String SQL_GET_FILM_REVIEWS = "select film_id, user_id, review_text from reviews where film_id = ?";
+    public static final String SQL_GET_USER_REVIEWS = "select id_review, film_id, review_text, reviews.user_id \n" +
+            "from reviews where reviews.film_id = 1 limit ?,?";
+    public static final String SQL_GET_USER_MARKS = "select  marks.film_id, user_mark, marks.user_id, film.film_default_title\n" +
+            "from marks \n" +
+            "join film on film.film_id = marks.film_id where user_id = ? limit ?,?;";
+    public static final String SQL_GET_USER_MARKS_EN = "select  marks.film_id, user_mark, film.film_loc_title\n" +
+            "from marks \n" +
+            "join film on film.film_id = marks.film_id where user_id = ? limit ?,?;";
+    //pagination
+
+
     private DAODbQuery(){}
 }

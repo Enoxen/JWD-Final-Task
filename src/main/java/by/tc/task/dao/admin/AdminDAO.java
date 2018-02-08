@@ -14,5 +14,7 @@ public interface AdminDAO {
     boolean banUser(String userLogin) throws AdminDAOException;
     boolean unBanUser(String userLogin) throws AdminDAOException;
     boolean isFilmExists(FilmData filmData) throws AdminDAOException;
-    //boolean deleteReview();
+    boolean deleteFilmFromDb(int filmId) throws AdminDAOException;
+    boolean giveUserAdminRights(String userLogin) throws AdminDAOException;
+    boolean takeAdminRightsFromUser(String userLogin) throws AdminDAOException;
 }

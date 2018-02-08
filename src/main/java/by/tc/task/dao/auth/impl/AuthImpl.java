@@ -6,8 +6,8 @@ import by.tc.task.dao.datasource.DataSource;
 import by.tc.task.dao.exception.AuthDAOException;
 import by.tc.task.dao.user.impl.UserDAOImpl;
 import by.tc.task.dao.util.Encryptor;
-import by.tc.task.entity.AuthUserData;
-import by.tc.task.exception.DataSourceDAOException;
+import by.tc.task.dao.exception.DataSourceDAOException;
+import by.tc.task.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +20,8 @@ import java.sql.SQLException;
  * Created by Y50-70 on 10.01.2018.
  */
 public class AuthImpl implements AuthDAO {
-    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
+
+
     @Override
     public boolean addNewUser(String login, String password, String email, String role) throws AuthDAOException {
         Connection connection = null;
@@ -74,7 +75,7 @@ public class AuthImpl implements AuthDAO {
         }
     }
     @Override
-    public AuthUserData authUser(String login, String password) throws AuthDAOException {
+    public User authUser(String login, String password) throws AuthDAOException {
         Connection connection = null;
         try {
             connection = DataSource.getConnection();
@@ -89,10 +90,11 @@ public class AuthImpl implements AuthDAO {
                         String dbPassword = authDataFromDb.getString(2);
                         String dbSalt = authDataFromDb.getString(3);
                         String dbRole = authDataFromDb.getString(4);
+                        String dbEmail = authDataFromDb.getString(5);
                         int dbUserId = authDataFromDb.getInt(5);
 
                         if (login.equals(dbLogin) && Encryptor.getPasswordHashCode(password, dbSalt).equals(dbPassword)) {
-                            return makeAuthDataFromDbResponse(dbLogin, dbRole, dbUserId);
+                            return makeUserFromDbResponse(dbLogin, dbRole, dbUserId, dbEmail);
                         } else {
                             return null;
                         }
@@ -109,11 +111,12 @@ public class AuthImpl implements AuthDAO {
         }
     }
 
-    private AuthUserData makeAuthDataFromDbResponse(String dbLogin, String dbRole, int dbUserId){
-        AuthUserData authData = new AuthUserData();
-        authData.setLogin(dbLogin);
-        authData.setRole(dbRole);
-        authData.setUserId(dbUserId);
-        return authData;
+    private User makeUserFromDbResponse(String dbLogin, String dbRole, int dbUserId, String dbEmail){
+        User user = new User();
+        user.setLogin(dbLogin);
+        user.setRole(dbRole);
+        user.setUserId(dbUserId);
+        user.setEmail(dbEmail);
+        return user;
     }
 }

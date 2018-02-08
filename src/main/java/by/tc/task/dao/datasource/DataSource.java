@@ -1,7 +1,7 @@
 package by.tc.task.dao.datasource;
 
-import by.tc.task.exception.ConnectionPoolException;
-import by.tc.task.exception.DataSourceDAOException;
+import by.tc.task.dao.exception.ConnectionPoolException;
+import by.tc.task.dao.exception.DataSourceDAOException;
 
 import java.sql.Connection;
 

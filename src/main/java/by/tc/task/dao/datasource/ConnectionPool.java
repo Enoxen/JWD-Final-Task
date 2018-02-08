@@ -1,6 +1,6 @@
 package by.tc.task.dao.datasource;
 
-import by.tc.task.exception.ConnectionPoolException;
+import by.tc.task.dao.exception.ConnectionPoolException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,9 +25,7 @@ public class ConnectionPool {
                 Connection connection = DriverManager.getConnection(SourceMetaData.URL, SourceMetaData.USERNAME, SourceMetaData.PASSWORD);
                 availableConnections.add(connection);
             }
-        } catch (ClassNotFoundException ex) {
-            throw new ConnectionPoolException(ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new ConnectionPoolException(ex);
         }
     }

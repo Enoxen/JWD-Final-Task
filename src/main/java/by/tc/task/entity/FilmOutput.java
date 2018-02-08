@@ -24,6 +24,8 @@ public class FilmOutput implements Serializable{
     public FilmOutput(){}
 
     public String getTitle() {
+
+
         return title;
     }
 
@@ -106,14 +108,13 @@ public class FilmOutput implements Serializable{
                 filmVotes == that.filmVotes &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(filmDescription, that.filmDescription) &&
-                Objects.equals(genres, that.genres) &&
                 Objects.equals(actors, that.actors) &&
                 Objects.equals(directors, that.directors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, rating, year, filmId, filmDescription, genres, actors, directors, filmVotes);
+        return Objects.hash(title, rating, year, filmId, filmDescription, actors, directors, filmVotes);
     }
 
     @Override

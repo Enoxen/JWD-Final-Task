@@ -1,7 +1,5 @@
 package by.tc.task.dao.exception;
 
-import by.tc.task.exception.DAOException;
-
 /**
  * Created by Y50-70 on 31.01.2018.
  */

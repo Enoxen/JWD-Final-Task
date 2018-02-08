@@ -1,4 +1,4 @@
-package by.tc.task.exception;
+package by.tc.task.dao.exception;
 
 /**
  * Created by Y50-70 on 12.11.2017.

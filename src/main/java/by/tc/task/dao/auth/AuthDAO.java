@@ -2,6 +2,7 @@ package by.tc.task.dao.auth;
 
 import by.tc.task.dao.exception.AuthDAOException;
 import by.tc.task.entity.AuthUserData;
+import by.tc.task.entity.User;
 
 
 /**
@@ -9,6 +10,5 @@ import by.tc.task.entity.AuthUserData;
  */
 public interface AuthDAO {
     boolean addNewUser(String login, String password, String email, String role) throws AuthDAOException;
-    AuthUserData authUser(String login, String password) throws AuthDAOException;
-
+    User authUser(String login, String password) throws AuthDAOException;
 }
